@@ -49,12 +49,7 @@ _Py_strhex(const char* argbuf, const Py_ssize_t arglen)
     if (arglen > PY_SSIZE_T_MAX / 2)
         return PyErr_NoMemory();
 
-#if PY_VERSION_HEX >= 0x03030000 && !defined(PYPY_VERSION)
-    retval = PyUnicode_New(arglen * 2, 127);
-    if (!retval)
-            return NULL;
-    retbuf = PyUnicode_1BYTE_DATA(retval);
-#elif PY_MAJOR_VERSION >= 3
+#if PY_MAJOR_VERSION >= 3
     retval = PyUnicode_FromUnicode(NULL, arglen * 2);
     if (!retval)
             return NULL;
