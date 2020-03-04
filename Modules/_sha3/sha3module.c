@@ -351,7 +351,7 @@ _sha3_sha3_224_hexdigest_impl(SHA3object *self)
         PyErr_SetString(PyExc_RuntimeError, "internal error in SHA3 Final()");
         return NULL;
     }
-    return _Py_strhex((const char *)digest,
+    return pysha3_strhex((const char *)digest,
                       self->hash_state.fixedOutputLength / 8);
 }
 
@@ -626,7 +626,7 @@ _SHAKE_digest(SHA3object *self, unsigned long digestlen, int hex)
     }
     SHA3_clearstate(temp);
     if (hex) {
-         result = _Py_strhex((const char *)digest, digestlen);
+        result = pysha3_strhex((const char *)digest, digestlen);
     } else {
         result = PyBytes_FromStringAndSize((const char *)digest,
                                            digestlen);
